@@ -59,6 +59,7 @@ program_body:
 stat: 
       bloc
      |blocSi
+     |blocWhile
 
 bloc:
       instr ';'
@@ -76,7 +77,40 @@ instr:
      | PRINT VARIABLE {fprintf(yyout,"%s [%c] %s",afficher1,$2,afficher2);}
      | READ VARIABLE {fprintf(yyout,"%s %c %s",lire1,$2,lire2);}
      | VARIABLE '=' cond { fprintf(yyout,"%s [%c], eax\n\n",affec,$1); }
+     /*| PRINT INTEGER {fprintf(yyout,"%s [%c] %s",afficher1,$2,afficher2);}*/
 
+blocWhile:
+     |WHILE etiquetWhile exp_bool LOOP blocIntWhile ENDWHILE {fprintf(yyout,";*************** ***** ****Réduction du bloc while\n");}
+
+blocIntWhile:
+     bloc
+     |blocSi
+     |blocSi blocIntWhile
+     |bloc blocIntWhile
+
+etiquetWhile:{
+		compteurWhile++;
+		fprintf(yyout,";********Lieu de l'étiquete\n");
+		fprintf(yyout,"debutWhile%d:\n",compteurWhile);
+		
+	     }
+
+LOOP:
+      DO {
+		fprintf(yyout,";*************** ***** ****Réduction du do\n");
+         }
+
+exp_bool:
+     cond {
+		fprintf(yyout,";*************** ***** ****Réduction de la condition\n");
+		fprintf(yyout,"pop eax\ncmp eax,1\njne finWhile%d\n",compteurWhile);
+	  }
+
+ENDWHILE:
+    DONE  {
+	    fprintf(yyout,";*************** ***** ****Réduction du done\n");
+	    fprintf(yyout,"jmp debutWhile%d\nfinWhile%d:\n",compteurWhile,compteurWhile);
+	  }
 
 
 
