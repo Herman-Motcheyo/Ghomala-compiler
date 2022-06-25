@@ -51,16 +51,7 @@ extern int yydebug;
   {
     INTEGER = 258,
     PRINT = 259,
-    VARIABLE = 260,
-    SI = 261,
-    ALORS = 262,
-    SINON = 263,
-    FSI = 264,
-    FSIN = 265,
-    READ = 266,
-    WHILE = 267,
-    DONE = 268,
-    DO = 269
+    VARIABLE = 260
   };
 #endif
 
