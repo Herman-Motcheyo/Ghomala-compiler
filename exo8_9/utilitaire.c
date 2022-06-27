@@ -12,7 +12,7 @@
 /*
  * Manipulation des listes chainées
  */
-Noeud* nouveau(int val)
+Noeud* nouveau(float val)
 {
   	Noeud* noeud = (Noeud*)malloc(sizeof(Noeud));
   	noeud->info = val;
@@ -20,7 +20,7 @@ Noeud* nouveau(int val)
     return noeud;
 }
 
-void insert_tete(Noeud** liste, int val)
+void insert_tete(Noeud** liste, float val)
 {
 	Noeud* l = nouveau(val);
 	l->suivant = *liste;
@@ -40,7 +40,7 @@ void inverse_liste(Noeud**liste)
 	*liste = l;
 
 }
-void insert_queue(Noeud** liste, int val)
+void insert_queue(Noeud** liste, float val)
 {
 	inverse_liste(liste);
 	insert_tete(liste, val);
@@ -60,14 +60,14 @@ void supprime_queue(Noeud**liste)
 	inverse_liste(liste);
 }
 
-int tete_de_liste(Noeud* liste)
+float tete_de_liste(Noeud* liste)
 {
 	return liste->info;
 }
 
-int fin_de_liste(Noeud* liste)
+float fin_de_liste(Noeud* liste)
 {
-	int val;
+	float val;
 	inverse_liste(&liste);
 	val = liste->info;
 	inverse_liste(&liste);
@@ -81,7 +81,7 @@ void affiche(Noeud * liste)
 	printf("\n");
 
 	while(l!=0){
-		printf("%d",l->info);
+		printf("%f",l->info);
 		l = l->suivant;
 	}
 
@@ -107,14 +107,14 @@ int pile_est_vide(Pile p)
 	else
 		return 0;
 }
-void empiler(Pile*p, int val)
+void empiler(Pile*p, float val)
 {
   insert_tete(&((*p).liste),val);
   (*p).indiceCourant ++;
   (*p).taille++;
 }
 
-int depiler(Pile*p)
+float depiler(Pile*p)
 {
    int val = -1;
    if(!pile_est_vide(*p))
@@ -126,7 +126,7 @@ int depiler(Pile*p)
    }
    return val;
 }
-int tete_de_pile(Pile p)
+float tete_de_pile(Pile p)
 {
 	int val = -1;
 	if(!pile_est_vide(p))
@@ -163,14 +163,14 @@ int file_est_vide(File f)
 	else
 		return 0;
 }
-void enfiler(File*f, int val)
+void enfiler(File*f, float val)
 {
   insert_queue(&((*f).liste),val);
   (*f).indiceCourant ++;
   (*f).taille++;
 }
 
-int defiler(File*f)
+float defiler(File*f)
 {
    int val = -1;
    if(!file_est_vide(*f))
@@ -182,7 +182,7 @@ int defiler(File*f)
    }
    return val;
 }
-int tete_de_file(File f)
+float tete_de_file(File f)
 {
 	int val = -1;
 	if(!file_est_vide(f))

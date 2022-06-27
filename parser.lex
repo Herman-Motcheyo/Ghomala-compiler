@@ -8,13 +8,14 @@ entier [0-9]+
 operateur \+|\*|\=|\;|\=\=|\!\=|\<|\>|\-|\/|\%|\+\=|\-\=|\/=|\%\=|\*\=
 parenthese \(|\)
 variable [a-zA-Z]
-
+chaine \"[a-zA-Z]+\"
 %%
 
 {entier} { yylval=atoi(yytext);return INTEGER;}
 {operateur} {return *yytext;}
 {parenthese} {return *yytext;}
 {variable}  {yylval=*yytext; return VARIABLE;}
+{chaine}  {yylval=*yytext; return CHAINE;}
 [\n] ;
 [ ] ;
 [\t] ;

@@ -6,25 +6,25 @@
  */
 
 #ifndef UTILITAIRE_H_
-#define UTILITAIRE_H
+#define UTILITAIRE_H_
 
 /*
  * Manipulation des listes chainées
  */
 struct Noeud{
-	int info;
+	float info;
 	struct Noeud * suivant;
 };
 typedef struct Noeud Noeud;
 
-Noeud* nouveau(int val);
-void insert_tete(Noeud** liste, int val);
+Noeud* nouveau(float val);
+void insert_tete(Noeud** liste, float val);
 void supprime_tete(Noeud ** liste);
 void inverse_liste(Noeud**liste);
-void insert_queue(Noeud** liste, int val);
+void insert_queue(Noeud** liste, float val);
 void supprime_queue(Noeud**liste);
-int tete_de_liste(Noeud* liste);
-int fin_de_liste(Noeud* liste);
+float tete_de_liste(Noeud* liste);
+float fin_de_liste(Noeud* liste);
 void affiche(Noeud * liste);
 
 
@@ -40,10 +40,10 @@ struct Pile{
 typedef struct Pile Pile;
 
 void init_pile_vide(Pile *p);
-void empiler(Pile*p, int val);
-int depiler(Pile*p);
+void empiler(Pile*p, float val);
+float depiler(Pile*p);
 int pile_est_vide(Pile p);
-int tete_de_pile(Pile p);
+float tete_de_pile(Pile p);
 int taille_de_pile(Pile p);
 int indice_de_pile(Pile p);
 
@@ -62,10 +62,10 @@ struct File{
 typedef struct File File;
 
 void init_file_vide(File *f);
-void enfiler(File*f, int val);
-int defiler(File*f);
+void enfiler(File*f, float val);
+float defiler(File*f);
 int file_est_vide(File f);
-int tete_de_file(File f);
+float tete_de_file(File f);
 int taille_de_file(File f);
 int indice_de_file(File f);
 

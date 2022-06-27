@@ -119,7 +119,7 @@ void exp_post_fixe_avec_prio(Noeud *exp, File *sortie)
 		if (!est_operateur(exp->info))
 		{
 			enfiler(sortie, exp->info);
-			// printf("%d\n ", exp->info);
+			printf("%f\n ", exp->info);
 		}
 		else if (exp->info == ')')
 		{
@@ -133,7 +133,7 @@ void exp_post_fixe_avec_prio(Noeud *exp, File *sortie)
 			empiler(&p, exp->info);
 			// printf("%c\n", val);
 		}else{
-			printf("%c\n", exp->info);
+			//printf("%c\n", exp->info);
 			while (!pile_est_vide(p) && tete_de_pile(p) != '(' && (priorite_operateur(tete_de_pile(p)) > priorite_operateur(exp->info)))
 			{
 				val = depiler(&p);
@@ -153,7 +153,7 @@ void exp_post_fixe_avec_prio(Noeud *exp, File *sortie)
 	}
 }
 
-int calcul(int operateur, int operande_1, int operande_2)
+float calcul(int operateur, float operande_1, float operande_2)
 {
 	switch (operateur)
 	{
@@ -166,14 +166,15 @@ int calcul(int operateur, int operande_1, int operande_2)
 	case '-':
 		return operande_2 - operande_1;
 	case '%':
-		return operande_1 % operande_2;
+		return (int)operande_1 % (int)operande_2;
 	}
 }
 
 int evaluation_gauche_droite(File exp_post_fixe)
 {
 	Pile p;
-	int val, operateur, operande_1, operande_2, resultat;
+	int operateur;
+	float val  , operande_1, operande_2 , resultat;
 	while (!file_est_vide(exp_post_fixe))
 	{
 		val = defiler(&exp_post_fixe);
@@ -186,6 +187,7 @@ int evaluation_gauche_droite(File exp_post_fixe)
 			operande_1 = depiler(&p);
 			operande_2 = depiler(&p);
 			operateur = val;
+			printf("%f %c %f", operande_1, operateur, operande_2);
 			resultat = calcul(operateur, operande_1, operande_2);
 			empiler(&p, resultat);
 		}
@@ -493,7 +495,7 @@ int analyse_lexicale(FILE *fdw)
 int main(int argc, char **argv)
 {
 
-	int resultat1, resultat2;
+	float resultat1, resultat2;
 	FILE *fdw = fopen(argv[1], "r");
 	File sortie;
 
@@ -505,7 +507,7 @@ int main(int argc, char **argv)
 	resultat2 = evaluation_gauche_droite(sortie);
 
 	// printf("Avec priorité: %d\t Sans priorité:%d\n", resultat2, resultat1);
-	printf("Avec priorité: %d\n", resultat2);
+	printf("Avec priorité: %f\n", resultat2);
 	/*if(val_anal == 0)*/
 
 	return 0;

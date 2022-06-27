@@ -1,0 +1,1103 @@
+État 0 conflits: 5 décalage/réduction, 1 réduction/réduction
+État 8 conflits: 5 décalage/réduction, 2 réduction/réduction
+État 27 conflits: 3 décalage/réduction, 1 réduction/réduction
+
+
+Grammaire
+
+    0 $accept: Program $end
+
+    1 Program: program_body
+
+    2 program_body: stat
+    3             | stat program_body
+
+    4 stat: bloc
+    5     | blocSi
+    6     | blocWhile
+
+    7 bloc: instr ';'
+    8     | instr ';' bloc
+
+    9 instr: %empty
+   10      | VARIABLE '=' E
+   11      | VARIABLE '+' E
+   12      | VARIABLE '-' E
+   13      | VARIABLE '/' E
+   14      | VARIABLE '%' E
+   15      | VARIABLE '*' E
+   16      | PRINT VARIABLE
+   17      | PRINT CHAINE
+   18      | READ VARIABLE
+   19      | VARIABLE '=' cond
+
+   20 blocWhile: %empty
+   21          | WHILE etiquetWhile exp_bool LOOP blocIntWhile ENDWHILE
+
+   22 blocIntWhile: bloc
+   23             | blocSi
+   24             | blocSi blocIntWhile
+   25             | bloc blocIntWhile
+
+   26 etiquetWhile: %empty
+
+   27 LOOP: DO
+
+   28 exp_bool: cond
+
+   29 ENDWHILE: DONE
+
+   30 blocSi: SI cond alo bloc finSi
+   31       | SI cond alo bloc sino bloc finSi
+
+   32 finSi: FSI
+
+   33 alo: ALORS
+
+   34 sino: SINON
+
+   35 cond: %empty
+   36     | '(' F '=' F ')'
+   37     | '(' F '!' F ')'
+   38     | '(' F '<' F ')'
+   39     | '(' F '>' F ')'
+
+   40 E: T
+   41  | E '+' T
+   42  | E '-' T
+
+   43 T: F
+   44  | T '*' F
+   45  | T '/' F
+   46  | T '%' F
+
+   47 F: INTEGER
+   48  | VARIABLE
+   49  | '(' E ')'
+
+
+Terminaux, suivis des règles où ils apparaissent
+
+    $end (0) 0
+    '!' (33) 37
+    '%' (37) 14 46
+    '(' (40) 36 37 38 39 49
+    ')' (41) 36 37 38 39 49
+    '*' (42) 15 44
+    '+' (43) 11 41
+    '-' (45) 12 42
+    '/' (47) 13 45
+    ';' (59) 7 8
+    '<' (60) 38
+    '=' (61) 10 19 36
+    '>' (62) 39
+    error (256)
+    INTEGER (258) 47
+    PRINT (259) 16 17
+    VARIABLE (260) 10 11 12 13 14 15 16 18 19 48
+    CHAINE (261) 17
+    SI (262) 30 31
+    ALORS (263) 33
+    SINON (264) 34
+    FSI (265) 32
+    READ (266) 18
+    WHILE (267) 21
+    DONE (268) 29
+    DO (269) 27
+
+
+Non-terminaux, suivis des règles où ils apparaissent
+
+    $accept (27)
+        à gauche: 0
+    Program (28)
+        à gauche: 1
+        à droite: 0
+    program_body (29)
+        à gauche: 2 3
+        à droite: 1 3
+    stat (30)
+        à gauche: 4 5 6
+        à droite: 2 3
+    bloc (31)
+        à gauche: 7 8
+        à droite: 4 8 22 25 30 31
+    instr (32)
+        à gauche: 9 10 11 12 13 14 15 16 17 18 19
+        à droite: 7 8
+    blocWhile (33)
+        à gauche: 20 21
+        à droite: 6
+    blocIntWhile (34)
+        à gauche: 22 23 24 25
+        à droite: 21 24 25
+    etiquetWhile (35)
+        à gauche: 26
+        à droite: 21
+    LOOP (36)
+        à gauche: 27
+        à droite: 21
+    exp_bool (37)
+        à gauche: 28
+        à droite: 21
+    ENDWHILE (38)
+        à gauche: 29
+        à droite: 21
+    blocSi (39)
+        à gauche: 30 31
+        à droite: 5 23 24
+    finSi (40)
+        à gauche: 32
+        à droite: 30 31
+    alo (41)
+        à gauche: 33
+        à droite: 30 31
+    sino (42)
+        à gauche: 34
+        à droite: 31
+    cond (43)
+        à gauche: 35 36 37 38 39
+        à droite: 19 28 30 31
+    E (44)
+        à gauche: 40 41 42
+        à droite: 10 11 12 13 14 15 41 42 49
+    T (45)
+        à gauche: 43 44 45 46
+        à droite: 40 41 42 44 45 46
+    F (46)
+        à gauche: 47 48 49
+        à droite: 36 37 38 39 43 44 45 46
+
+
+État 0
+
+    0 $accept: . Program $end
+
+    PRINT     décalage et aller à l'état 1
+    VARIABLE  décalage et aller à l'état 2
+    SI        décalage et aller à l'état 3
+    READ      décalage et aller à l'état 4
+    WHILE     décalage et aller à l'état 5
+
+    $end      réduction par utilisation de la règle 20 (blocWhile)
+    PRINT     [réduction par utilisation de la règle 20 (blocWhile)]
+    VARIABLE  [réduction par utilisation de la règle 20 (blocWhile)]
+    SI        [réduction par utilisation de la règle 20 (blocWhile)]
+    READ      [réduction par utilisation de la règle 20 (blocWhile)]
+    WHILE     [réduction par utilisation de la règle 20 (blocWhile)]
+    ';'       réduction par utilisation de la règle 9 (instr)
+    ';'       [réduction par utilisation de la règle 20 (blocWhile)]
+    $défaut  réduction par utilisation de la règle 9 (instr)
+
+    Program       aller à l'état 6
+    program_body  aller à l'état 7
+    stat          aller à l'état 8
+    bloc          aller à l'état 9
+    instr         aller à l'état 10
+    blocWhile     aller à l'état 11
+    blocSi        aller à l'état 12
+
+
+État 1
+
+   16 instr: PRINT . VARIABLE
+   17      | PRINT . CHAINE
+
+    VARIABLE  décalage et aller à l'état 13
+    CHAINE    décalage et aller à l'état 14
+
+
+État 2
+
+   10 instr: VARIABLE . '=' E
+   11      | VARIABLE . '+' E
+   12      | VARIABLE . '-' E
+   13      | VARIABLE . '/' E
+   14      | VARIABLE . '%' E
+   15      | VARIABLE . '*' E
+   19      | VARIABLE . '=' cond
+
+    '='  décalage et aller à l'état 15
+    '+'  décalage et aller à l'état 16
+    '-'  décalage et aller à l'état 17
+    '/'  décalage et aller à l'état 18
+    '%'  décalage et aller à l'état 19
+    '*'  décalage et aller à l'état 20
+
+
+État 3
+
+   30 blocSi: SI . cond alo bloc finSi
+   31       | SI . cond alo bloc sino bloc finSi
+
+    '('  décalage et aller à l'état 21
+
+    $défaut  réduction par utilisation de la règle 35 (cond)
+
+    cond  aller à l'état 22
+
+
+État 4
+
+   18 instr: READ . VARIABLE
+
+    VARIABLE  décalage et aller à l'état 23
+
+
+État 5
+
+   21 blocWhile: WHILE . etiquetWhile exp_bool LOOP blocIntWhile ENDWHILE
+
+    $défaut  réduction par utilisation de la règle 26 (etiquetWhile)
+
+    etiquetWhile  aller à l'état 24
+
+
+État 6
+
+    0 $accept: Program . $end
+
+    $end  décalage et aller à l'état 25
+
+
+État 7
+
+    1 Program: program_body .
+
+    $défaut  réduction par utilisation de la règle 1 (Program)
+
+
+État 8
+
+    2 program_body: stat .
+    3             | stat . program_body
+
+    PRINT     décalage et aller à l'état 1
+    VARIABLE  décalage et aller à l'état 2
+    SI        décalage et aller à l'état 3
+    READ      décalage et aller à l'état 4
+    WHILE     décalage et aller à l'état 5
+
+    $end      réduction par utilisation de la règle 2 (program_body)
+    $end      [réduction par utilisation de la règle 20 (blocWhile)]
+    PRINT     [réduction par utilisation de la règle 20 (blocWhile)]
+    VARIABLE  [réduction par utilisation de la règle 20 (blocWhile)]
+    SI        [réduction par utilisation de la règle 20 (blocWhile)]
+    READ      [réduction par utilisation de la règle 20 (blocWhile)]
+    WHILE     [réduction par utilisation de la règle 20 (blocWhile)]
+    ';'       réduction par utilisation de la règle 9 (instr)
+    ';'       [réduction par utilisation de la règle 20 (blocWhile)]
+    $défaut  réduction par utilisation de la règle 2 (program_body)
+
+    program_body  aller à l'état 26
+    stat          aller à l'état 8
+    bloc          aller à l'état 9
+    instr         aller à l'état 10
+    blocWhile     aller à l'état 11
+    blocSi        aller à l'état 12
+
+
+État 9
+
+    4 stat: bloc .
+
+    $défaut  réduction par utilisation de la règle 4 (stat)
+
+
+État 10
+
+    7 bloc: instr . ';'
+    8     | instr . ';' bloc
+
+    ';'  décalage et aller à l'état 27
+
+
+État 11
+
+    6 stat: blocWhile .
+
+    $défaut  réduction par utilisation de la règle 6 (stat)
+
+
+État 12
+
+    5 stat: blocSi .
+
+    $défaut  réduction par utilisation de la règle 5 (stat)
+
+
+État 13
+
+   16 instr: PRINT VARIABLE .
+
+    $défaut  réduction par utilisation de la règle 16 (instr)
+
+
+État 14
+
+   17 instr: PRINT CHAINE .
+
+    $défaut  réduction par utilisation de la règle 17 (instr)
+
+
+État 15
+
+   10 instr: VARIABLE '=' . E
+   19      | VARIABLE '=' . cond
+
+    INTEGER   décalage et aller à l'état 28
+    VARIABLE  décalage et aller à l'état 29
+    '('       décalage et aller à l'état 30
+
+    $défaut  réduction par utilisation de la règle 35 (cond)
+
+    cond  aller à l'état 31
+    E     aller à l'état 32
+    T     aller à l'état 33
+    F     aller à l'état 34
+
+
+État 16
+
+   11 instr: VARIABLE '+' . E
+
+    INTEGER   décalage et aller à l'état 28
+    VARIABLE  décalage et aller à l'état 29
+    '('       décalage et aller à l'état 35
+
+    E  aller à l'état 36
+    T  aller à l'état 33
+    F  aller à l'état 34
+
+
+État 17
+
+   12 instr: VARIABLE '-' . E
+
+    INTEGER   décalage et aller à l'état 28
+    VARIABLE  décalage et aller à l'état 29
+    '('       décalage et aller à l'état 35
+
+    E  aller à l'état 37
+    T  aller à l'état 33
+    F  aller à l'état 34
+
+
+État 18
+
+   13 instr: VARIABLE '/' . E
+
+    INTEGER   décalage et aller à l'état 28
+    VARIABLE  décalage et aller à l'état 29
+    '('       décalage et aller à l'état 35
+
+    E  aller à l'état 38
+    T  aller à l'état 33
+    F  aller à l'état 34
+
+
+État 19
+
+   14 instr: VARIABLE '%' . E
+
+    INTEGER   décalage et aller à l'état 28
+    VARIABLE  décalage et aller à l'état 29
+    '('       décalage et aller à l'état 35
+
+    E  aller à l'état 39
+    T  aller à l'état 33
+    F  aller à l'état 34
+
+
+État 20
+
+   15 instr: VARIABLE '*' . E
+
+    INTEGER   décalage et aller à l'état 28
+    VARIABLE  décalage et aller à l'état 29
+    '('       décalage et aller à l'état 35
+
+    E  aller à l'état 40
+    T  aller à l'état 33
+    F  aller à l'état 34
+
+
+État 21
+
+   36 cond: '(' . F '=' F ')'
+   37     | '(' . F '!' F ')'
+   38     | '(' . F '<' F ')'
+   39     | '(' . F '>' F ')'
+
+    INTEGER   décalage et aller à l'état 28
+    VARIABLE  décalage et aller à l'état 29
+    '('       décalage et aller à l'état 35
+
+    F  aller à l'état 41
+
+
+État 22
+
+   30 blocSi: SI cond . alo bloc finSi
+   31       | SI cond . alo bloc sino bloc finSi
+
+    ALORS  décalage et aller à l'état 42
+
+    alo  aller à l'état 43
+
+
+État 23
+
+   18 instr: READ VARIABLE .
+
+    $défaut  réduction par utilisation de la règle 18 (instr)
+
+
+État 24
+
+   21 blocWhile: WHILE etiquetWhile . exp_bool LOOP blocIntWhile ENDWHILE
+
+    '('  décalage et aller à l'état 21
+
+    $défaut  réduction par utilisation de la règle 35 (cond)
+
+    exp_bool  aller à l'état 44
+    cond      aller à l'état 45
+
+
+État 25
+
+    0 $accept: Program $end .
+
+    $défaut  accepter
+
+
+État 26
+
+    3 program_body: stat program_body .
+
+    $défaut  réduction par utilisation de la règle 3 (program_body)
+
+
+État 27
+
+    7 bloc: instr ';' .
+    8     | instr ';' . bloc
+
+    PRINT     décalage et aller à l'état 1
+    VARIABLE  décalage et aller à l'état 2
+    READ      décalage et aller à l'état 4
+
+    PRINT     [réduction par utilisation de la règle 7 (bloc)]
+    VARIABLE  [réduction par utilisation de la règle 7 (bloc)]
+    READ      [réduction par utilisation de la règle 7 (bloc)]
+    ';'       réduction par utilisation de la règle 7 (bloc)
+    ';'       [réduction par utilisation de la règle 9 (instr)]
+    $défaut  réduction par utilisation de la règle 7 (bloc)
+
+    bloc   aller à l'état 46
+    instr  aller à l'état 10
+
+
+État 28
+
+   47 F: INTEGER .
+
+    $défaut  réduction par utilisation de la règle 47 (F)
+
+
+État 29
+
+   48 F: VARIABLE .
+
+    $défaut  réduction par utilisation de la règle 48 (F)
+
+
+État 30
+
+   36 cond: '(' . F '=' F ')'
+   37     | '(' . F '!' F ')'
+   38     | '(' . F '<' F ')'
+   39     | '(' . F '>' F ')'
+   49 F: '(' . E ')'
+
+    INTEGER   décalage et aller à l'état 28
+    VARIABLE  décalage et aller à l'état 29
+    '('       décalage et aller à l'état 35
+
+    E  aller à l'état 47
+    T  aller à l'état 33
+    F  aller à l'état 48
+
+
+État 31
+
+   19 instr: VARIABLE '=' cond .
+
+    $défaut  réduction par utilisation de la règle 19 (instr)
+
+
+État 32
+
+   10 instr: VARIABLE '=' E .
+   41 E: E . '+' T
+   42  | E . '-' T
+
+    '+'  décalage et aller à l'état 49
+    '-'  décalage et aller à l'état 50
+
+    $défaut  réduction par utilisation de la règle 10 (instr)
+
+
+État 33
+
+   40 E: T .
+   44 T: T . '*' F
+   45  | T . '/' F
+   46  | T . '%' F
+
+    '/'  décalage et aller à l'état 51
+    '%'  décalage et aller à l'état 52
+    '*'  décalage et aller à l'état 53
+
+    $défaut  réduction par utilisation de la règle 40 (E)
+
+
+État 34
+
+   43 T: F .
+
+    $défaut  réduction par utilisation de la règle 43 (T)
+
+
+État 35
+
+   49 F: '(' . E ')'
+
+    INTEGER   décalage et aller à l'état 28
+    VARIABLE  décalage et aller à l'état 29
+    '('       décalage et aller à l'état 35
+
+    E  aller à l'état 47
+    T  aller à l'état 33
+    F  aller à l'état 34
+
+
+État 36
+
+   11 instr: VARIABLE '+' E .
+   41 E: E . '+' T
+   42  | E . '-' T
+
+    '+'  décalage et aller à l'état 49
+    '-'  décalage et aller à l'état 50
+
+    $défaut  réduction par utilisation de la règle 11 (instr)
+
+
+État 37
+
+   12 instr: VARIABLE '-' E .
+   41 E: E . '+' T
+   42  | E . '-' T
+
+    '+'  décalage et aller à l'état 49
+    '-'  décalage et aller à l'état 50
+
+    $défaut  réduction par utilisation de la règle 12 (instr)
+
+
+État 38
+
+   13 instr: VARIABLE '/' E .
+   41 E: E . '+' T
+   42  | E . '-' T
+
+    '+'  décalage et aller à l'état 49
+    '-'  décalage et aller à l'état 50
+
+    $défaut  réduction par utilisation de la règle 13 (instr)
+
+
+État 39
+
+   14 instr: VARIABLE '%' E .
+   41 E: E . '+' T
+   42  | E . '-' T
+
+    '+'  décalage et aller à l'état 49
+    '-'  décalage et aller à l'état 50
+
+    $défaut  réduction par utilisation de la règle 14 (instr)
+
+
+État 40
+
+   15 instr: VARIABLE '*' E .
+   41 E: E . '+' T
+   42  | E . '-' T
+
+    '+'  décalage et aller à l'état 49
+    '-'  décalage et aller à l'état 50
+
+    $défaut  réduction par utilisation de la règle 15 (instr)
+
+
+État 41
+
+   36 cond: '(' F . '=' F ')'
+   37     | '(' F . '!' F ')'
+   38     | '(' F . '<' F ')'
+   39     | '(' F . '>' F ')'
+
+    '='  décalage et aller à l'état 54
+    '!'  décalage et aller à l'état 55
+    '<'  décalage et aller à l'état 56
+    '>'  décalage et aller à l'état 57
+
+
+État 42
+
+   33 alo: ALORS .
+
+    $défaut  réduction par utilisation de la règle 33 (alo)
+
+
+État 43
+
+   30 blocSi: SI cond alo . bloc finSi
+   31       | SI cond alo . bloc sino bloc finSi
+
+    PRINT     décalage et aller à l'état 1
+    VARIABLE  décalage et aller à l'état 2
+    READ      décalage et aller à l'état 4
+
+    $défaut  réduction par utilisation de la règle 9 (instr)
+
+    bloc   aller à l'état 58
+    instr  aller à l'état 10
+
+
+État 44
+
+   21 blocWhile: WHILE etiquetWhile exp_bool . LOOP blocIntWhile ENDWHILE
+
+    DO  décalage et aller à l'état 59
+
+    LOOP  aller à l'état 60
+
+
+État 45
+
+   28 exp_bool: cond .
+
+    $défaut  réduction par utilisation de la règle 28 (exp_bool)
+
+
+État 46
+
+    8 bloc: instr ';' bloc .
+
+    $défaut  réduction par utilisation de la règle 8 (bloc)
+
+
+État 47
+
+   41 E: E . '+' T
+   42  | E . '-' T
+   49 F: '(' E . ')'
+
+    '+'  décalage et aller à l'état 49
+    '-'  décalage et aller à l'état 50
+    ')'  décalage et aller à l'état 61
+
+
+État 48
+
+   36 cond: '(' F . '=' F ')'
+   37     | '(' F . '!' F ')'
+   38     | '(' F . '<' F ')'
+   39     | '(' F . '>' F ')'
+   43 T: F .
+
+    '='  décalage et aller à l'état 54
+    '!'  décalage et aller à l'état 55
+    '<'  décalage et aller à l'état 56
+    '>'  décalage et aller à l'état 57
+
+    $défaut  réduction par utilisation de la règle 43 (T)
+
+
+État 49
+
+   41 E: E '+' . T
+
+    INTEGER   décalage et aller à l'état 28
+    VARIABLE  décalage et aller à l'état 29
+    '('       décalage et aller à l'état 35
+
+    T  aller à l'état 62
+    F  aller à l'état 34
+
+
+État 50
+
+   42 E: E '-' . T
+
+    INTEGER   décalage et aller à l'état 28
+    VARIABLE  décalage et aller à l'état 29
+    '('       décalage et aller à l'état 35
+
+    T  aller à l'état 63
+    F  aller à l'état 34
+
+
+État 51
+
+   45 T: T '/' . F
+
+    INTEGER   décalage et aller à l'état 28
+    VARIABLE  décalage et aller à l'état 29
+    '('       décalage et aller à l'état 35
+
+    F  aller à l'état 64
+
+
+État 52
+
+   46 T: T '%' . F
+
+    INTEGER   décalage et aller à l'état 28
+    VARIABLE  décalage et aller à l'état 29
+    '('       décalage et aller à l'état 35
+
+    F  aller à l'état 65
+
+
+État 53
+
+   44 T: T '*' . F
+
+    INTEGER   décalage et aller à l'état 28
+    VARIABLE  décalage et aller à l'état 29
+    '('       décalage et aller à l'état 35
+
+    F  aller à l'état 66
+
+
+État 54
+
+   36 cond: '(' F '=' . F ')'
+
+    INTEGER   décalage et aller à l'état 28
+    VARIABLE  décalage et aller à l'état 29
+    '('       décalage et aller à l'état 35
+
+    F  aller à l'état 67
+
+
+État 55
+
+   37 cond: '(' F '!' . F ')'
+
+    INTEGER   décalage et aller à l'état 28
+    VARIABLE  décalage et aller à l'état 29
+    '('       décalage et aller à l'état 35
+
+    F  aller à l'état 68
+
+
+État 56
+
+   38 cond: '(' F '<' . F ')'
+
+    INTEGER   décalage et aller à l'état 28
+    VARIABLE  décalage et aller à l'état 29
+    '('       décalage et aller à l'état 35
+
+    F  aller à l'état 69
+
+
+État 57
+
+   39 cond: '(' F '>' . F ')'
+
+    INTEGER   décalage et aller à l'état 28
+    VARIABLE  décalage et aller à l'état 29
+    '('       décalage et aller à l'état 35
+
+    F  aller à l'état 70
+
+
+État 58
+
+   30 blocSi: SI cond alo bloc . finSi
+   31       | SI cond alo bloc . sino bloc finSi
+
+    SINON  décalage et aller à l'état 71
+    FSI    décalage et aller à l'état 72
+
+    finSi  aller à l'état 73
+    sino   aller à l'état 74
+
+
+État 59
+
+   27 LOOP: DO .
+
+    $défaut  réduction par utilisation de la règle 27 (LOOP)
+
+
+État 60
+
+   21 blocWhile: WHILE etiquetWhile exp_bool LOOP . blocIntWhile ENDWHILE
+
+    PRINT     décalage et aller à l'état 1
+    VARIABLE  décalage et aller à l'état 2
+    SI        décalage et aller à l'état 3
+    READ      décalage et aller à l'état 4
+
+    $défaut  réduction par utilisation de la règle 9 (instr)
+
+    bloc          aller à l'état 75
+    instr         aller à l'état 10
+    blocIntWhile  aller à l'état 76
+    blocSi        aller à l'état 77
+
+
+État 61
+
+   49 F: '(' E ')' .
+
+    $défaut  réduction par utilisation de la règle 49 (F)
+
+
+État 62
+
+   41 E: E '+' T .
+   44 T: T . '*' F
+   45  | T . '/' F
+   46  | T . '%' F
+
+    '/'  décalage et aller à l'état 51
+    '%'  décalage et aller à l'état 52
+    '*'  décalage et aller à l'état 53
+
+    $défaut  réduction par utilisation de la règle 41 (E)
+
+
+État 63
+
+   42 E: E '-' T .
+   44 T: T . '*' F
+   45  | T . '/' F
+   46  | T . '%' F
+
+    '/'  décalage et aller à l'état 51
+    '%'  décalage et aller à l'état 52
+    '*'  décalage et aller à l'état 53
+
+    $défaut  réduction par utilisation de la règle 42 (E)
+
+
+État 64
+
+   45 T: T '/' F .
+
+    $défaut  réduction par utilisation de la règle 45 (T)
+
+
+État 65
+
+   46 T: T '%' F .
+
+    $défaut  réduction par utilisation de la règle 46 (T)
+
+
+État 66
+
+   44 T: T '*' F .
+
+    $défaut  réduction par utilisation de la règle 44 (T)
+
+
+État 67
+
+   36 cond: '(' F '=' F . ')'
+
+    ')'  décalage et aller à l'état 78
+
+
+État 68
+
+   37 cond: '(' F '!' F . ')'
+
+    ')'  décalage et aller à l'état 79
+
+
+État 69
+
+   38 cond: '(' F '<' F . ')'
+
+    ')'  décalage et aller à l'état 80
+
+
+État 70
+
+   39 cond: '(' F '>' F . ')'
+
+    ')'  décalage et aller à l'état 81
+
+
+État 71
+
+   34 sino: SINON .
+
+    $défaut  réduction par utilisation de la règle 34 (sino)
+
+
+État 72
+
+   32 finSi: FSI .
+
+    $défaut  réduction par utilisation de la règle 32 (finSi)
+
+
+État 73
+
+   30 blocSi: SI cond alo bloc finSi .
+
+    $défaut  réduction par utilisation de la règle 30 (blocSi)
+
+
+État 74
+
+   31 blocSi: SI cond alo bloc sino . bloc finSi
+
+    PRINT     décalage et aller à l'état 1
+    VARIABLE  décalage et aller à l'état 2
+    READ      décalage et aller à l'état 4
+
+    $défaut  réduction par utilisation de la règle 9 (instr)
+
+    bloc   aller à l'état 82
+    instr  aller à l'état 10
+
+
+État 75
+
+   22 blocIntWhile: bloc .
+   25             | bloc . blocIntWhile
+
+    PRINT     décalage et aller à l'état 1
+    VARIABLE  décalage et aller à l'état 2
+    SI        décalage et aller à l'état 3
+    READ      décalage et aller à l'état 4
+
+    DONE      réduction par utilisation de la règle 22 (blocIntWhile)
+    $défaut  réduction par utilisation de la règle 9 (instr)
+
+    bloc          aller à l'état 75
+    instr         aller à l'état 10
+    blocIntWhile  aller à l'état 83
+    blocSi        aller à l'état 77
+
+
+État 76
+
+   21 blocWhile: WHILE etiquetWhile exp_bool LOOP blocIntWhile . ENDWHILE
+
+    DONE  décalage et aller à l'état 84
+
+    ENDWHILE  aller à l'état 85
+
+
+État 77
+
+   23 blocIntWhile: blocSi .
+   24             | blocSi . blocIntWhile
+
+    PRINT     décalage et aller à l'état 1
+    VARIABLE  décalage et aller à l'état 2
+    SI        décalage et aller à l'état 3
+    READ      décalage et aller à l'état 4
+
+    DONE      réduction par utilisation de la règle 23 (blocIntWhile)
+    $défaut  réduction par utilisation de la règle 9 (instr)
+
+    bloc          aller à l'état 75
+    instr         aller à l'état 10
+    blocIntWhile  aller à l'état 86
+    blocSi        aller à l'état 77
+
+
+État 78
+
+   36 cond: '(' F '=' F ')' .
+
+    $défaut  réduction par utilisation de la règle 36 (cond)
+
+
+État 79
+
+   37 cond: '(' F '!' F ')' .
+
+    $défaut  réduction par utilisation de la règle 37 (cond)
+
+
+État 80
+
+   38 cond: '(' F '<' F ')' .
+
+    $défaut  réduction par utilisation de la règle 38 (cond)
+
+
+État 81
+
+   39 cond: '(' F '>' F ')' .
+
+    $défaut  réduction par utilisation de la règle 39 (cond)
+
+
+État 82
+
+   31 blocSi: SI cond alo bloc sino bloc . finSi
+
+    FSI  décalage et aller à l'état 72
+
+    finSi  aller à l'état 87
+
+
+État 83
+
+   25 blocIntWhile: bloc blocIntWhile .
+
+    $défaut  réduction par utilisation de la règle 25 (blocIntWhile)
+
+
+État 84
+
+   29 ENDWHILE: DONE .
+
+    $défaut  réduction par utilisation de la règle 29 (ENDWHILE)
+
+
+État 85
+
+   21 blocWhile: WHILE etiquetWhile exp_bool LOOP blocIntWhile ENDWHILE .
+
+    $défaut  réduction par utilisation de la règle 21 (blocWhile)
+
+
+État 86
+
+   24 blocIntWhile: blocSi blocIntWhile .
+
+    $défaut  réduction par utilisation de la règle 24 (blocIntWhile)
+
+
+État 87
+
+   31 blocSi: SI cond alo bloc sino bloc finSi .
+
+    $défaut  réduction par utilisation de la règle 31 (blocSi)

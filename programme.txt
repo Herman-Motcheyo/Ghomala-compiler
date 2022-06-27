@@ -1,18 +1,15 @@
 
+a = 10;
+b = 3;
 
-a = 18;
-b = 10;
-neTo_o ((a * b ) > 0)
-rhe 
-  aPe (a > b) gue_e
-    a = a - b;
-  tacPo_o
-    b = b - a ;
-aami
-te
+Ke_e a;
+Ke_e b;
+
+c = a - b + (a +b);
 
 aPe (a == 0 ) gue_e
- lachieeu b;
+ lachieeu c;
 tacPo_o 
- lachieeu a ;
+ lachieeu c;
 aami
+
