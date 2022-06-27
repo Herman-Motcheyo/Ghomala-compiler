@@ -372,9 +372,9 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    1,    2,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    3,    4,    1,    5,    6,    1,    7,    7,    7,
-        7,    7,    7,    7,    7,    7,    7,    1,    8,    1,
+        1,    1,    1,    1,    1,    1,    3,    1,    1,    1,
+        1,    4,    5,    1,    6,    7,    8,    9,    9,    9,
+        9,    9,    9,    9,    9,    9,    9,    1,   10,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -399,15 +399,15 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static const YY_CHAR yy_meta[9] =
+static const YY_CHAR yy_meta[11] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1,    1
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1
     } ;
 
 static const flex_int16_t yy_base[13] =
     {   0,
-        0,    0,   14,   15,    5,   15,    3,   15,    5,    0,
-        4,   15
+        0,    0,   16,   17,    5,   17,    4,   17,    5,    0,
+        3,   17
     } ;
 
 static const flex_int16_t yy_def[13] =
@@ -416,18 +416,18 @@ static const flex_int16_t yy_def[13] =
        12,    0
     } ;
 
-static const flex_int16_t yy_nxt[24] =
+static const flex_int16_t yy_nxt[28] =
     {   0,
-        4,    5,    6,    6,    6,    4,    7,    4,    9,   10,
-       11,   11,    8,   12,    3,   12,   12,   12,   12,   12,
-       12,   12,   12
+        4,    5,    6,    6,    6,    6,    4,    6,    7,    4,
+        9,   11,   10,   11,    8,   12,    3,   12,   12,   12,
+       12,   12,   12,   12,   12,   12,   12
     } ;
 
-static const flex_int16_t yy_chk[24] =
+static const flex_int16_t yy_chk[28] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1,    1,    7,    7,
-       11,    9,    5,    3,   12,   12,   12,   12,   12,   12,
-       12,   12,   12
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        7,   11,    7,    9,    5,    3,   12,   12,   12,   12,
+       12,   12,   12,   12,   12,   12,   12
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -677,7 +677,7 @@ YY_DECL
 		}
 
 	{
-#line 23 "exo7.lex"
+#line 24 "exo7.lex"
 
 
 #line 684 "exo7.lex.yy.c"
@@ -713,7 +713,7 @@ yy_match:
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 15 );
+		while ( yy_base[yy_current_state] != 17 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -739,33 +739,33 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 25 "exo7.lex"
+#line 26 "exo7.lex"
 printf("<int:%s>",yytext);
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 26 "exo7.lex"
+#line 27 "exo7.lex"
 printf("<reel:%s>",yytext);
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 27 "exo7.lex"
+#line 28 "exo7.lex"
 printf("<operateur:");ECHO; printf(">");
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 28 "exo7.lex"
-printf("\n%s : Parse Error, unkown char\n",yytext); return 1;
+#line 29 "exo7.lex"
+printf("\n%s : Parse Error,You must enter an operator or a digit\n",yytext); return 1;
 	YY_BREAK
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 29 "exo7.lex"
+#line 30 "exo7.lex"
 
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 31 "exo7.lex"
+#line 32 "exo7.lex"
 ECHO;
 	YY_BREAK
 #line 772 "exo7.lex.yy.c"
@@ -1773,7 +1773,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 31 "exo7.lex"
+#line 32 "exo7.lex"
 
 /* code ajouté en bas du parseur*/
 int main(int argc, char **argv)

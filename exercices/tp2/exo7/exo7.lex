@@ -14,9 +14,10 @@
 
 /* entier*/
 entier [0-9]+
-reel [-]([0-9]+)\.([0-9]+)
+reel ([0-9]+)\.([0-9]+)
+
 /*operateur*/
-operateur  \+|\*|\-
+operateur  \+|\*|\-|\%|\/
 /*error*/
 error .
 
@@ -25,7 +26,7 @@ error .
 {entier}     printf("<int:%s>",yytext);
 {reel}     printf("<reel:%s>",yytext);
 {operateur}  printf("<operateur:");ECHO; printf(">");
-{error} printf("\n%s : Parse Error, unkown char\n",yytext); return 1;
+{error} printf("\n%s : Parse Error,You must enter an operator or a digit\n",yytext); return 1;
 [\n];
 
 %%
